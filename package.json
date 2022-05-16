@@ -1,0 +1,59 @@
+{
+  "name": "templette",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Nicholas Berlette <nick@berlette.com>",
+  "description": "Lightweight templating in slightly more than 154 bytes",
+  "repository": "nberlette/templette",
+  "readme": "https://github.com/nberlette/templette#readme",
+  "bugs": "https://github.com/nberlette/templette/issues",
+  "homepage": "https://github.com/nberlette/templette#readme",
+  "scripts": {
+    "build": "unbuild",
+    "lint": "prettier --ignore-path=.gitignore --check 'src/*'",
+    "format": "prettier --ignore-path=.gitignore --write 'src/*'",
+    "preversion": "nr test",
+    "prepublishOnly": "bumpp --commit '📦 %s' --tag --push --all package.json pnpm-lock.yaml dist/index.* index.d.ts readme.md",
+    "pretest": "nr format && nr lint",
+    "test": "tape test/*.js | tap-spec"
+  },
+  "prettier": "@brlt/prettier",
+  "types": "./index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "dist/index.*",
+    "index.d.ts",
+    "license",
+    "readme.md"
+  ],
+  "keywords": [
+    "inject",
+    "mustache",
+    "handlebars",
+    "placeholder",
+    "template"
+  ],
+  "devDependencies": {
+    "@brlt/n": "0.1.1",
+    "@brlt/prettier": "1.8.2",
+    "@types/tape": "4.13.2",
+    "bumpp": "7.1.1",
+    "mk-dirs": "3.0.0",
+    "prettier": "2.6.2",
+    "tap-spec": "5.0.0",
+    "tape": "5.5.3",
+    "typescript": "4.6.4",
+    "unbuild": "0.7.4"
+  }
+}
