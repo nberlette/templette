@@ -9,19 +9,33 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      -
+        name: "checkout repo"
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Install pnpm
+      -
+        name: "setup pnpm"
         uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
+      -
+        name: "setup node"
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
           registry-url: https://registry.npmjs.org/
-      - run: pnpm install
-      - run: pnpm publish --access public --no-git-checks
+      -
+        name: "install and run tests"
+        run: pnpm it # install and run test suite right await
+      -
+        name: "build package"
+        run: pnpm run build
+      -
+        name: "publish to npm"
+        run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: npx conventional-github-releaser -p angular
+      -
+        name: "create github release"
+        run: npx conventional-github-releaser -p angular
         env:
           CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
