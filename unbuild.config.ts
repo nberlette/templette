@@ -2,23 +2,21 @@ import { defineBuildConfig } from 'unbuild';
 import pkg from './package.json';
 
 export default defineBuildConfig({
-	declaration: false,
+	declaration: true,
 	entries: [
-		'src/index.ts',
-		'!package.json'
+		'src/index.ts'
 	],
 	externals: ['./package.json'],
 	outDir: 'dist',
-	clean: true,
 	rollup: {
 		dts: {
 			compilerOptions: {
 				baseUrl: '.',
 				paths: {
-					'~': ['./'],
-					'~/*': ['./src/*'],
-					'@': ['./'],
-					'@/*': ['./src/*']
+					"~": ["./src"],
+					"~/*": ["./*", "./src/*"],
+					"@": ["./src"],
+					"@/*": ["./*", "./src/*"]
 				}
 			}
 		},

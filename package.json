@@ -3,30 +3,34 @@
   "version": "1.0.0",
   "license": "MIT",
   "author": "Nicholas Berlette <nick@berlette.com>",
-  "description": "Lightweight templating in slightly more than 154 bytes",
+  "description": "Petite template compiler written in TypeScript",
   "repository": "nberlette/templette",
   "readme": "https://github.com/nberlette/templette#readme",
   "bugs": "https://github.com/nberlette/templette/issues",
   "homepage": "https://github.com/nberlette/templette#readme",
   "scripts": {
-    "build": "unbuild",
+    "build": "unbuild && esno postbuild.ts",
     "lint": "prettier --ignore-path=.gitignore --check 'src/*'",
     "format": "prettier --ignore-path=.gitignore --write 'src/*'",
     "preversion": "nr test",
-    "prepublishOnly": "bumpp --commit '📦 %s' --tag --push --all package.json pnpm-lock.yaml dist/index.* index.d.ts readme.md",
+    "release": "bumpp --commit '📦 %s' --tag --push --all package.json pnpm-lock.yaml dist/index.* index.d.ts readme.md",
     "pretest": "nr format && nr lint",
     "test": "tape test/*.js | tap-spec"
   },
   "prettier": "@brlt/prettier",
   "types": "./index.d.ts",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "browser": "dist/index.esnext.mjs",
+  "unpkg": "dist/index.esnext.mjs",
+  "esnext": "dist/index.esnext.mjs",
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "browser": "./dist/index.esnext.mjs"
     },
     "./*": "./*"
   },
@@ -42,13 +46,19 @@
     "mustache",
     "handlebars",
     "placeholder",
-    "template"
+    "template",
+    "commonjs",
+    "esmodules",
+    "typescript",
+    "templette"
   ],
   "devDependencies": {
     "@brlt/n": "0.1.1",
     "@brlt/prettier": "1.8.2",
+    "@types/node": "17.0.33",
     "@types/tape": "4.13.2",
     "bumpp": "7.1.1",
+    "esno": "0.15.0",
     "mk-dirs": "3.0.0",
     "prettier": "2.6.2",
     "tap-spec": "5.0.0",
